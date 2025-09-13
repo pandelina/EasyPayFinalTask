@@ -1,0 +1,39 @@
+﻿@model List<updateddetyraep.Models.Contact>
+
+<div class="text-center">
+    <h1 class="display-4">Contacts</h1>
+    <br />
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>FirstName</th>
+                <th>LastName</th>
+                <th>Email</th>
+                <th>PhoneNumber</th>
+                <th>PhoneNumber2</th>
+                <th>Adress</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var contact in Model)
+            {
+                <tr>
+                    <td>@contact.Id</td>
+                    <td>@contact.FirstName</td>
+                    <td>@contact.LastName</td>
+                    <td>@contact.Email</td>
+                    <td>@contact.PhoneNumber</td>
+
+                    <td>@(contact.PhoneNumber2.HasValue? contact.PhoneNumber2.ToString() : "-")</td>
+                    <td>@contact.Adress</td>
+                    <td>
+                        <a asp-action="CreateEditContacts" asp-route-id="@contact.Id" class="btn btn-sm btn-warning">Edit</a>
+                        <a asp-action="DeleteContacts" asp-route-id="@contact.Id" class="btn btn-sm btn-danger">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
