@@ -10,8 +10,7 @@
                 <th>FirstName</th>
                 <th>LastName</th>
                 <th>Email</th>
-                <th>PhoneNumber</th>
-                <th>PhoneNumber2</th>
+                <th>PhoneNumber</th>    
                 <th>Adress</th>
 
             </tr>
@@ -24,9 +23,18 @@
                     <td>@contact.FirstName</td>
                     <td>@contact.LastName</td>
                     <td>@contact.Email</td>
-                    <td>@contact.PhoneNumber</td>
 
-                    <td>@(contact.PhoneNumber2.HasValue? contact.PhoneNumber2.ToString() : "-")</td>
+                    <td>
+                        @if (contact.PhoneNumbers != null && contact.PhoneNumbers.Any())
+                        {
+                            @string.Join(", ", contact.PhoneNumbers.Select(p => p.Number))
+                        }
+                        else
+                        {
+                            <text>-</text>
+                        }
+                    </td>
+
                     <td>@contact.Adress</td>
                     <td>
                         <a asp-action="CreateEditContacts" asp-route-id="@contact.Id" class="btn btn-sm btn-warning">Edit</a>

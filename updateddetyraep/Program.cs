@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using updateddetyraep.Models;
 using Microsoft.AspNetCore.Identity.UI.Services;
+using Microsoft.OpenApi.Models; // ?? për Swagger
 
 namespace updateddetyraep
 {
@@ -30,6 +31,18 @@ namespace updateddetyraep
             // Dummy email sender (nëse duhet për konfirmim emaili, edhe pse e ke off)
             builder.Services.AddSingleton<IEmailSender, DummyEmailSender>();
 
+            // ?? Swagger services
+            builder.Services.AddEndpointsApiExplorer();
+            builder.Services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Title = "Contacts API",
+                    Version = "v1",
+                    Description = "Dokumentacion interaktiv për API-n e kontakteve"
+                });
+            });
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline
@@ -45,6 +58,14 @@ namespace updateddetyraep
 
             app.UseAuthentication();
             app.UseAuthorization();
+
+            // ?? Swagger middleware
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Contacts API v1");
+                c.RoutePrefix = "swagger"; // hapet tek /swagger
+            });
 
             app.MapControllerRoute(
                 name: "default",

@@ -4,31 +4,57 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Create a contact </h1>
+    <h1 class="display-4">Create/Edit Contact</h1>
 </div>
 
-<form asp-action="CreateEditContacts" asp-controller="Home">
+<form asp-action="CreateEditContacts" asp-controller="Home" method="post">
 
-    <input hidden class="form-control" type="number" placeholder="0" asp-for="Id" />
+    <input type="hidden" asp-for="Id" />
 
-    <label>FirstName </label>
+    <label>First Name</label>
     <input class="form-control" type="text" placeholder="Enter your first name" asp-for="FirstName" />
 
-    <label>LastName </label>
+    <label>Last Name</label>
     <input class="form-control" type="text" placeholder="Enter your last name" asp-for="LastName" />
 
-    <label>Email </label>
+    <label>Email</label>
     <input class="form-control" type="text" placeholder="Enter your email" asp-for="Email" />
 
-    <label>PhoneNumber </label>
-    <input class="form-control" type="number" placeholder="Enter your phone number" asp-for="PhoneNumber" />
+    <label>Phone Numbers</label>
+    <div id="phoneNumbersContainer">
+        @if (Model.PhoneNumbers != null && Model.PhoneNumbers.Any())
+        {
+            foreach (var pn in Model.PhoneNumbers)
+            {
+                <input type="text" name="phoneNumbers" class="form-control mb-2" value="@pn.Number" placeholder="Enter phone number" />
+            }
+        }
+        else
+        {
+            <input type="text" name="phoneNumbers" class="form-control mb-2" placeholder="Enter phone number" />
+        }
+    </div>
+  
+    <div class="mb-3">
+        <button type="button" class="btn btn-secondary" onclick="addPhoneNumber()">+ Add another</button>
+    </div>
 
-    <label>Second Phone Number2</label>
-    <input class="form-control" type="number" placeholder=" Enter second number if you have" asp-for="PhoneNumber2" />
+    <div class="mb-3">
+        <label>Address</label>
+        <input class="form-control" type="text" placeholder="Enter your address" asp-for="Adress" />
+    </div>
 
-    <label>Adress </label>
-    <input class="form-control" type="text" placeholder="Enter your adress" asp-for="Adress" />
-
-    <button class="btn btn-primary mt-4" type="submit"> Save </button>
-
+    <button class="btn btn-primary mt-4" type="submit">Save</button>
 </form>
+
+<script>
+    function addPhoneNumber() {
+        var container = document.getElementById("phoneNumbersContainer");
+        var input = document.createElement("input");
+        input.type = "text";
+        input.name = "phoneNumbers";
+        input.className = "form-control mb-2";
+        input.placeholder = "Enter phone number";
+        container.appendChild(input);
+    }
+</script>

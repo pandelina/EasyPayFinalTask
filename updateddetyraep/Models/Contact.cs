@@ -2,15 +2,13 @@
 {
     public class Contact
     {
+        public int Id { get; set; }                 // Primary key
+        public string? FirstName { get; set; }     // Emri i parë
+        public string? LastName { get; set; }      // Mbiemri
+        public string? Email { get; set; }         // Emaili
+        public string? Adress { get; set; }        // Adresa
 
-        public int Id { get; set; } //properties we will store them in a db later
-        public string? FirstName { get; set; }
-        public string? LastName { get; set; }
-        public string? Email { get; set; }
-        public int PhoneNumber { get; set; }
-        public int? PhoneNumber2 { get; set; }
-        public string? Adress { get; set; }
-
-
+        // Lista e numrave të telefonit, lidhje me tabelën PhoneNumber
+        public List<PhoneNumber> PhoneNumbers { get; set; } = new();
     }
 }
