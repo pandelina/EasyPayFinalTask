@@ -2,10 +2,10 @@
 
 public class PhoneNumber
 {
-    public int Id { get; set; }                // Primary key
-    public string Number { get; set; } = "";   // Numri i telefonit
+    public int Id { get; set; }                
+    public string Number { get; set; } = "";  
 
-    // Foreign key që lidhet me Contact
-    public int ContactId { get; set; }         // Id e kontaktit
-    public Contact Contact { get; set; } = null!; // Lidhja me Contact
+    
+    public int ContactId { get; set; }        
+    public Contact Contact { get; set; } = null!; 
 }
