@@ -10,19 +10,18 @@ public class ContactsBookDBContext : IdentityDbContext<IdentityUser>
     {
     }
 
-    // Tabelat e databazës
+    // Tabelat e databazes
     public DbSet<Contact> Contacts { get; set; }
     public DbSet<PhoneNumber> PhoneNumbers { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        base.OnModelCreating(modelBuilder); // e domosdoshme për Identity
+        base.OnModelCreating(modelBuilder); 
 
-        // Marrëdhënia Contact -> PhoneNumbers (1 kontakt ka shumë numra)
         modelBuilder.Entity<PhoneNumber>()
-            .HasOne(p => p.Contact)       // PhoneNumber ka një Contact
-            .WithMany(c => c.PhoneNumbers) // Contact ka shumë PhoneNumbers
-            .HasForeignKey(p => p.ContactId) // Foreign key
-            .OnDelete(DeleteBehavior.Cascade); // fshij numrat kur fshihet kontakti
+            .HasOne(p => p.Contact)       
+            .WithMany(c => c.PhoneNumbers) 
+            .HasForeignKey(p => p.ContactId) 
+            .OnDelete(DeleteBehavior.Cascade); 
     }
 }
